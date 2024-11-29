@@ -1,0 +1,10 @@
+<mvc:View controllerName="app.mining0953.controller.View2"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <content>
+            <Button text='{drillModel>/LocationId}'>
+            </Button>
+        </content>
+    </Page>
+</mvc:View>

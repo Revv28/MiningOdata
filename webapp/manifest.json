@@ -81,6 +81,11 @@
         "dataSource": "mainService",
         "preload": true,
         "settings": {}
+      },
+      "drillModel": {
+        "type":"sap.ui.model.json.JSONModel",
+        "preload": true,
+        "settings": {}
       }
     },
     "resources": {
@@ -109,12 +114,23 @@
           "target": [
             "TargetView1"
           ]
+        },
+        {
+          "name": "RouteView2",
+          "pattern": "View2/{locationId}",
+          "target": [
+            "TargetView2"
+          ]
         }
       ],
       "targets": {
         "TargetView1": {
           "id": "View1",
           "name": "View1"
+        },
+        "TargetView2": {
+          "id": "View2",
+          "name": "View2"
         }
       }
     },
