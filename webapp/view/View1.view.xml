@@ -1,0 +1,18 @@
+<mvc:View controllerName="app.mining0953.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <content>
+            	<!-- <List items="{/oMiningSet}" id="idList" mode="SingleSelectMaster" selectionChange="onRowSelect" >
+						<items>
+							<ObjectListItem title="{LocationId}">
+								
+							</ObjectListItem>
+						</items>
+					</List> -->
+                      <Button text='Nav button' press='onButtonPress'>
+
+                        </Button>
+        </content>
+    </Page>
+</mvc:View>

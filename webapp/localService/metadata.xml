@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="Z0953_MINING_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="oMining" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="LocationId"/>
+                </Key>
+                <Property Name="LocationId" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Location Id" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="LocationDesc" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Location Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MiningRa" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Mining RA" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TotalCost" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label=" Total Cost" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="mining_to_drill" Relationship="Z0953_MINING_SRV.mining_drill" FromRole="FromRole_mining_drill" ToRole="ToRole_mining_drill"/>
+            </EntityType>
+            <EntityType Name="oDrill" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="LocationId"/>
+                </Key>
+                <Property Name="DrillId" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Drill Id" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="LocationId" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Location Id" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DrlsPrfmd" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Drills Performed" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MineralType" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Mineral Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="mining_drill" sap:content-version="1">
+                <End Type="Z0953_MINING_SRV.oMining" Multiplicity="1" Role="FromRole_mining_drill"/>
+                <End Type="Z0953_MINING_SRV.oDrill" Multiplicity="*" Role="ToRole_mining_drill"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_mining_drill">
+                        <PropertyRef Name="LocationId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_mining_drill">
+                        <PropertyRef Name="LocationId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="Z0953_MINING_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="oMiningSet" EntityType="Z0953_MINING_SRV.oMining" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="oDrillSet" EntityType="Z0953_MINING_SRV.oDrill" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="mining_drillSet" Association="Z0953_MINING_SRV.mining_drill" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="oMiningSet" Role="FromRole_mining_drill"/>
+                    <End EntitySet="oDrillSet" Role="ToRole_mining_drill"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="http://zin-blr-srv1:8001/sap/opu/odata/sap/Z0953_MINING_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://zin-blr-srv1:8001/sap/opu/odata/sap/Z0953_MINING_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
