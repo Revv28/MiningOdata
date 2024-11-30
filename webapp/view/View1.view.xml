@@ -6,7 +6,7 @@
         id="page"
         title="{i18n>title}">
         <content>
-            <List
+            <!-- <List
                 items="{/oMiningSet}"
                 id="idList"
                 mode="SingleSelectMaster"
@@ -14,7 +14,34 @@
                 <items>
                     <ObjectListItem title="{LocationId}" />
                 </items>
-            </List>
+            </List> -->
+            <Table id="idTable" items="{/oMiningSet}" mode="SingleSelectMaster"
+            selectionChange="onRowPress" inset="false" growing="true"  growingThreshold="10">
+                <columns>
+                    <Column>
+                        <Text text="Location Id"></Text>
+                    </Column>
+                    <Column>
+                        <Text text="Location Description"></Text>
+                    </Column>
+                    <Column>
+                        <Text text="Mining Resource Allocation"></Text>
+                    </Column>
+                    <Column>
+                        <Text text="TotalCost"></Text>
+                    </Column>
+                </columns>
+                <items>
+                     <ColumnListItem>
+          <cells>
+            <Text text="{LocationId}" />
+            <Text text="{LocationDesc}" />
+            <Text text="{MiningRa}" />
+            <Text text="{TotalCost}" />
+          </cells>
+        </ColumnListItem>
+                </items>
+            </Table>
         </content>
     </Page>
 </mvc:View>

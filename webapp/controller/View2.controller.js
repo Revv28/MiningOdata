@@ -10,14 +10,17 @@ sap.ui.define([
         },
         onMatch: function (oEvt) {
             var that = this;
-            var locId = oEvt.mParameters.arguments.locationId;
-            var url = "/oMiningSet('" + locId + "')?$expand=mining_to_drill";
+            var miningJsonObj = oEvt.mParameters.arguments.locationId;
+            var miningObj = JSON.parse(miningJsonObj);
+            var oMiningModel = this.getOwnerComponent().getModel('miningModel');
+                oMiningModel.setData(miningObj);
+            var url = "/oMiningSet('" + locId + "')/mining_to_drill";
             console.log(url);
             var oModel = this.getOwnerComponent().getModel()
             oModel.read(url, {
                 success: function (oData, res) {
                     if (res.statusCode === '200' || res.statusText === "OK") {
-                        // console.log(oData);
+                        console.log(oData);
                         
                         var oModel1 = that.getOwnerComponent().getModel('drillModel')
                         oModel1.setData(oData);
