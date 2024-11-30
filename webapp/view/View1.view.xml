@@ -1,10 +1,12 @@
 <mvc:View
     controllerName="app.mining0953.controller.View1"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
+    xmlns="sap.m"
+>
     <Page
         id="page"
-        title="{i18n>title}">
+        title="{i18n>title}"
+    >
         <content>
             <!-- <List
                 items="{/oMiningSet}"
@@ -15,33 +17,49 @@
                     <ObjectListItem title="{LocationId}" />
                 </items>
             </List> -->
-            <Table id="idTable" items="{/oMiningSet}" mode="SingleSelectMaster"
-            selectionChange="onRowPress" inset="false" growing="true"  growingThreshold="10">
-                <columns>
-                    <Column>
-                        <Text text="Location Id"></Text>
-                    </Column>
-                    <Column>
-                        <Text text="Location Description"></Text>
-                    </Column>
-                    <Column>
-                        <Text text="Mining Resource Allocation"></Text>
-                    </Column>
-                    <Column>
-                        <Text text="TotalCost"></Text>
-                    </Column>
-                </columns>
-                <items>
-                     <ColumnListItem>
-          <cells>
-            <Text text="{LocationId}" />
-            <Text text="{LocationDesc}" />
-            <Text text="{MiningRa}" />
-            <Text text="{TotalCost}" />
-          </cells>
-        </ColumnListItem>
-                </items>
-            </Table>
+            <VBox>
+                <HBox>
+                    <SearchField
+                        id="searchField"
+                        placeholder="Search by Location"
+                        liveChange="onFilterSearch"
+                    />
+                </HBox>
+                <Table
+                    id="idTable1"
+                    items="{/oMiningSet}"
+                    mode="SingleSelectMaster"
+                    selectionChange="onRowPress"
+                    inset="false"
+                    growing="true"
+                    growingThreshold="10"
+                >
+                    <columns>
+                        <Column>
+                            <Text text="Location Id" />
+                        </Column>
+                        <Column>
+                            <Text text="Location Description" />
+                        </Column>
+                        <Column>
+                            <Text text="Mining Resource Allocation" />
+                        </Column>
+                        <Column>
+                            <Text text="TotalCost" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{LocationId}" />
+                                <Text text="{LocationDesc}" />
+                                <Text text="{MiningRa}" />
+                                <Text text="{TotalCost}" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </VBox>
         </content>
     </Page>
 </mvc:View>

@@ -123,7 +123,7 @@
         },
         {
           "name": "RouteView2",
-          "pattern": "View2/{locationId}",
+          "pattern": "View2/{mining}",
           "target": [
             "TargetView2"
           ]

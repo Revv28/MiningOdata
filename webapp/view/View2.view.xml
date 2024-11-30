@@ -1,10 +1,60 @@
 <mvc:View controllerName="app.mining0953.controller.View2"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form">
     <Page id="page" title="{i18n>title}">
         <content>
-            <Button text='{miningModel>/LocationId}'>
-            </Button>
+       
+            <VBox>
+        <!-- Create a SimpleForm to display the address details -->
+                <f:SimpleForm editable="false" 	title="Location details">
+                    <Label text="Location Id" />
+                    <Text text="{miningModel>/LocationId}" />
+
+                    <Label text="Location Description" />
+                    <Text text="{miningModel>/LocationDesc}" />
+
+                    <Label text="Mining Resource Allocated" />
+                    <Text text="{miningModel>/MiningRa}" />
+
+                    <Label text="Total Cost" />
+                    <Text text="{miningModel>/TotalCost}" />
+                </f:SimpleForm>
+            </VBox>
+            <VBox >
+                <f:SimpleForm title="Drill Details">
+                     <Table id="idTable" items="{drillModel>/results}" mode="SingleSelectMaster"
+            selectionChange="onRowPress" inset="false" growing="true"  growingThreshold="10">
+                <columns>
+                   
+                    <Column>
+                        <Text text="Location Id"></Text>
+                    </Column>
+                     <Column>
+                        <Text text="Drill Id"></Text>
+                    </Column>
+                    <Column>
+                        <Text text="Drills Performed"></Text>
+                    </Column>
+                    <Column>
+                        <Text text="Mineral Type"></Text>
+                    </Column>
+                </columns>
+                <items>
+                     <ColumnListItem>
+          <cells>
+            <Text text="{drillModel>LocationId}" />
+            <Text text="{drillModel>DrillId}" />
+            <Text text="{drillModel>DrlsPrfmd}" />
+            <Text text="{drillModel>MineralType}" />
+          </cells>
+        </ColumnListItem>
+                </items>
+            </Table>
+
+                </f:SimpleForm>
+            </VBox>
+           
         </content>
     </Page>
 </mvc:View>

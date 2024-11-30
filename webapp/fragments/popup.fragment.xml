@@ -1,0 +1,6 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <SelectDialog items="{/oMiningSet}" confirm="onConfirm">
+        <StandardListItem 
+            title="{LocationId}" />
+    </SelectDialog>
+</core:FragmentDefinition>
