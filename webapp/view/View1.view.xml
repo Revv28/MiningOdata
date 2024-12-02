@@ -17,20 +17,35 @@
                     <ObjectListItem title="{LocationId}" />
                 </items>
             </List> -->
+
             <VBox>
                 <HBox>
-                    <SearchField
-                        id="searchField"
-                        placeholder="Search by Location"
-                        liveChange="onFilterSearch"
+                    <Input
+                        id="searchField1"
+                        placeholder="Search by Location Id"
+                        liveChange=".onFilterSearch"
+                        width="15rem"
+                    />
+                     <Input
+                        id="searchField2"
+                        placeholder="Search by Location Description"
+                        liveChange=".onFilterSearch"
+                        width="15rem"
+                    />
+                     <Input
+                        id="searchField3"
+                        placeholder="Search by Mining Resource Allocations"
+                        liveChange=".onFilterSearch"
+                        width="20rem"
                     />
                 </HBox>
+         
                 <Table
                     id="idTable1"
-                    items="{/oMiningSet}"
+                    items="{odataMining>/results}"
                     mode="SingleSelectMaster"
                     selectionChange="onRowPress"
-                    inset="false"
+                    
                     growing="true"
                     growingThreshold="10"
                 >
@@ -49,12 +64,12 @@
                         </Column>
                     </columns>
                     <items>
-                        <ColumnListItem>
+                        <ColumnListItem type="Navigation">
                             <cells>
-                                <Text text="{LocationId}" />
-                                <Text text="{LocationDesc}" />
-                                <Text text="{MiningRa}" />
-                                <Text text="{TotalCost}" />
+                                <Text text="{odataMining>LocationId}" />
+                                <Text text="{odataMining>LocationDesc}" />
+                                <Text text="{odataMining>MiningRa}" />
+                                <Text text="{odataMining>TotalCost}" />
                             </cells>
                         </ColumnListItem>
                     </items>

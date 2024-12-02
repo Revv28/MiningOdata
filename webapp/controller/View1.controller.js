@@ -8,8 +8,31 @@ sap.ui.define([
 
     return Controller.extend("app.mining0953.controller.View1", {
         onInit() {
+            var oDefaultModel = this.getOwnerComponent().getModel()
+
+            var oMiningOdata = this.getOwnerComponent().getModel('odataMining')
+            var url = "/oMiningSet"
+            oDefaultModel.read(url, {
+                success: function (oData, res) {
+                    if (res.statusCode === '200' || res.statusText === "OK") {
+                        console.log(oData);
+                        
+                        oMiningOdata.setData(oData)
+                        // oModel1.setData(oData); 
+                        // that.getView().setModel()
+                    }
+
+                },
+                error: function (error) {
+                    if (error.statusCode === "404") {
+                        console.log(error)
+                    }
+                }
+
+
+            })
         },
-        
+    
         onRowPress: function (oEvt) {
             var oItem = oEvt.getParameter("listItem");
             var sPath = oItem.mAggregations.cells
@@ -29,16 +52,22 @@ sap.ui.define([
             })
 
         },
-        onFilterSearch:function(oEvt){
+        onFilterSearch: function(oEvt){
             var searchval = oEvt.getParameter('newValue')
             var ofilter = new Filter({
                 path:'LocationDesc',
                 operator:FilterOperator.Contains,
                 value1:searchval
             })
-            var oTable = this.byId('idTable1');
-            var oBinding = oTable.getBinding('items')
-            oBinding.filter(ofilter)
+            var oNameInput = this.byId("searchField");
+            var sNameValue = oNameInput.getValue();
+            var aFilters = [];
+            if (sNameValue) {
+              aFilters.push(new Filter("LocationId", FilterOperator.Contains, sNameValue));
+            }
+            var oTable = this.byId("idTable1");
+            var oBinding = oTable.getBinding("items")
+            oBinding.filter(aFilters)
         },
     });
 });

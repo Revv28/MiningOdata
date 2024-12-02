@@ -11,8 +11,11 @@ sap.ui.define([
         onMatch: function (oEvt) {
             var that = this;
             var miningJsonObj = oEvt.mParameters.arguments.mining;
+            console.log(miningJsonObj);
             var miningObj = JSON.parse(miningJsonObj);
+            console.log(miningObj);
             var oMiningModel = this.getOwnerComponent().getModel('miningModel');
+            console.log(oMiningModel);
                 oMiningModel.setData(miningObj);
             
             var url = "/oMiningSet('" + miningObj.LocationId + "')/mining_to_drill";
