@@ -9,7 +9,6 @@ sap.ui.define([
     return Controller.extend("app.mining0953.controller.View1", {
         onInit() {
             var oDefaultModel = this.getOwnerComponent().getModel()
-
             var oMiningOdata = this.getOwnerComponent().getModel('odataMining')
             var url = "/oMiningSet"
             oDefaultModel.read(url, {
@@ -52,7 +51,7 @@ sap.ui.define([
             })
 
         },
-        onFilterSearch: function(oEvt){
+        onFilterSearch: function(){
             var oLocationId = this.byId("searchField1");
             var oLocationIdValue = oLocationId.getValue();
 
