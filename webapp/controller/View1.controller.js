@@ -76,5 +76,47 @@ sap.ui.define([
             var oBinding = oTable.getBinding("items")
             oBinding.filter(aFilters)
         },
+        onF4Help: function (oEvent) {
+            this.idInpt=oEvent.getSource().getId()
+            if (!this.dialog) {
+                Fragment.load({
+                    name: "app.mining0953.fragments.popup",
+                    controller: this
+                }).then(function (oDialog) {
+                    this.dialog = oDialog;
+                    this.getView().addDependent(this.dialog);
+                    this.dialog.open();
+                }.bind(this));
+            } else {
+                this.dialog.open();
+            }
+        },
+        onConfirm:function(oEvent){
+            var oItem=oEvent.getParameter("selectedItem")
+            var sItem=oItem.mProperties.title
+            var oInpt=this.getView().byId(this.idInpt)
+            oInpt.setValue(sItem)
+            this.onFilterSearch()
+          },
+        onRefreshPress:function(){
+            var oLocationId = this.byId("searchField1");
+            var oLocationDesc = this.byId("searchField2");
+            var oMiningRes = this.byId("searchField3");
+            if (oLocationId.getValue()){
+                oLocationId.setValue('');
+            }
+            if (oLocationDesc.getValue()){
+                oLocationDesc.setValue('');
+            }
+            if (oMiningRes.getValue()){
+                oMiningRes.setValue('')
+            }
+            var aFilters = [];
+            var oTable = this.byId("idTable1");
+            var oBinding = oTable.getBinding("items")
+            oBinding.filter(aFilters)
+
+        }
+  
     });
 });
