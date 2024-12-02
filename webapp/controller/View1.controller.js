@@ -53,18 +53,25 @@ sap.ui.define([
 
         },
         onFilterSearch: function(oEvt){
-            var searchval = oEvt.getParameter('newValue')
-            var ofilter = new Filter({
-                path:'LocationDesc',
-                operator:FilterOperator.Contains,
-                value1:searchval
-            })
-            var oNameInput = this.byId("searchField");
-            var sNameValue = oNameInput.getValue();
+            var oLocationId = this.byId("searchField1");
+            var oLocationIdValue = oLocationId.getValue();
+
+            var oLocationDesc = this.byId("searchField2");
+            var oLocationDescValue = oLocationDesc.getValue();
+
+            var oMiningRes = this.byId("searchField3");
+            var oMiningResIdValue = oMiningRes.getValue();
+
             var aFilters = [];
-            if (sNameValue) {
-              aFilters.push(new Filter("LocationId", FilterOperator.Contains, sNameValue));
+            if (oLocationIdValue) {
+              aFilters.push(new Filter("LocationId", FilterOperator.Contains, oLocationIdValue));
             }
+            if (oLocationDescValue) {
+                aFilters.push(new Filter("LocationDesc", FilterOperator.Contains, oLocationDescValue));
+              }
+            if (oMiningResIdValue) {
+                aFilters.push(new Filter("MiningRa", FilterOperator.Contains, oMiningResIdValue));
+              }
             var oTable = this.byId("idTable1");
             var oBinding = oTable.getBinding("items")
             oBinding.filter(aFilters)
