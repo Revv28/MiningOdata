@@ -1,0 +1,27 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:f="sap.ui.layout.form">
+    <Dialog id="createDialog" title="Create Item" type="Message" state="Information">
+        <content>
+            <f:SimpleForm id="simpleForm" editable="true">
+                <f:content>
+                    <Label text="Location Id" />
+                    <Input id="locationId" />
+
+                    <Label text="Location Description" />
+                    <Input id="locationDescription" />
+
+                    <Label text="Mining Resource Allocation" />
+                    <Input id="miningResourceAllocation" />
+
+                    <Label text="Total Cost" />
+                    <Input id="totalCost" />
+                </f:content>
+            </f:SimpleForm>
+        </content>
+        <beginButton>
+            <Button text="Create" press="onCreatePress"/>
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" press="onCancelPress"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

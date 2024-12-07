@@ -9,68 +9,70 @@
         title="{i18n>title}"
     >
         <content>
-            <!-- <List
-                items="{/oMiningSet}"
-                id="idList"
-                mode="SingleSelectMaster"
-                selectionChange="onRowSelect">
-                <items>
-                    <ObjectListItem title="{LocationId}" />
-                </items>
-            </List> -->
-                 <fb:FilterBar id="filterBar" clear="onRefreshPress" class="filterbar sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom"
-    showClearOnFB="true" reset="onReset"   filterBarExpanded="true">
-
-    <!-- Filter Items -->
-    <fb:filterItems>
-        
-        <!-- Name Filter -->
-        <fb:FilterItem label="Location Id" name="A">
-            <fb:control>
-            <Input
-                        id="searchField1"
-                        placeholder="Search by Location Id"
-                        liveChange=".onFilterSearch"
-                        width="15rem"
-                        showValueHelp="true"
-                        valueHelpRequest="onF4Help"
-                    />
-                <!-- <Input id="idNameFilter" placeholder="Enter Name" liveChange=".onFilter" 
+            <fb:FilterBar
+                id="filterBar"
+                clear="onRefreshPress"
+                class="filterbar sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom"
+                showClearOnFB="true"
+                reset="onReset"
+                filterBarExpanded="true"
+            >
+                <fb:filterItems>
+                
+                    <fb:FilterItem
+                        label="Location Id"
+                        name="A"
+                    >
+                        <fb:control>
+                            <Input
+                                id="searchField1"
+                                placeholder="Search by Location Id"
+                                liveChange=".onFilterSearch"
+                                width="15rem"
+                                showValueHelp="true"
+                                valueHelpRequest="onF4Help"
+                            />
+                            <!-- <Input id="idNameFilter" placeholder="Enter Name" liveChange=".onFilter" 
                     width="200px" showValueHelp="true" valueHelpRequest="onF4Help" /> -->
-            </fb:control>
-        </fb:FilterItem>
-        
-        <!-- City Filter -->
-        <fb:FilterItem label="Location Description" name="B">
-            <fb:control>
-                <!-- <Input id="idCityFilter" placeholder="Enter City" liveChange=".onFilter" width="200px" /> -->
-                 <Input
-                        id="searchField2"
-                        placeholder="Search by Location Description"
-                        liveChange=".onFilterSearch"
-                        width="15rem"
-                    />
-            </fb:control>
-        </fb:FilterItem>
-        
-        <!-- Department Filter -->
-        <fb:FilterItem label="Mining Resources" name="C">
-            <fb:control>
-                <!-- <Input id="idDeptFilter" placeholder="Enter Department" liveChange=".onFilter" width="200px" /> -->
-                <Input
-                        id="searchField3"
-                        placeholder="Search by Mining Resource Allocations"
-                        liveChange=".onFilterSearch"
-                        width="20rem"
-                    />
-            </fb:control>
-        </fb:FilterItem>
-        
-    </fb:filterItems>
-</fb:FilterBar>
+                        </fb:control>
+                    </fb:FilterItem>
+
+                    
+                    <fb:FilterItem
+                        label="Location Description"
+                        name="B"
+                    >
+                        <fb:control>
+                            <!-- <Input id="idCityFilter" placeholder="Enter City" liveChange=".onFilter" width="200px" /> -->
+                            <Input
+                                id="searchField2"
+                                placeholder="Search by Location Description"
+                                liveChange=".onFilterSearch"
+                                width="15rem"
+                            />
+                        </fb:control>
+                    </fb:FilterItem>
+
+                    <fb:FilterItem
+                        label="Mining Resources"
+                        name="C"
+                    >
+                        <fb:control>
+                            <!-- <Input id="idDeptFilter" placeholder="Enter Department" liveChange=".onFilter" width="200px" /> -->
+                            <Input
+                                id="searchField3"
+                                placeholder="Search by Mining Resource Allocations"
+                                liveChange=".onFilterSearch"
+                                width="20rem"
+                            />
+                        </fb:control>
+                    </fb:FilterItem>
+                </fb:filterItems>
+            </fb:FilterBar>
 
             <VBox>
                 <HBox>
+                <Button text="create" press="onOpenFragment"></Button>
                     <!-- <Input
                         id="searchField1"
                         placeholder="Search by Location Id"
@@ -79,26 +81,25 @@
                         showValueHelp="true"
                         valueHelpRequest="onF4Help"
                     /> -->
-                     <!-- <Input
+                    <!-- <Input
                         id="searchField2"
                         placeholder="Search by Location Description"
                         liveChange=".onFilterSearch"
                         width="15rem"
                     /> -->
-                     <!-- <Input
+                    <!-- <Input
                         id="searchField3"
                         placeholder="Search by Mining Resource Allocations"
                         liveChange=".onFilterSearch"
                         width="20rem"
                     /> -->
                 </HBox>
-         
+
                 <Table
                     id="idTable1"
                     items="{odataMining>/results}"
                     mode="SingleSelectMaster"
                     selectionChange="onRowPress"
-                    
                     growing="true"
                     growingThreshold="10"
                 >

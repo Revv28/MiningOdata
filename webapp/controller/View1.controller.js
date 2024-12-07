@@ -115,7 +115,34 @@ sap.ui.define([
             var oBinding = oTable.getBinding("items")
             oBinding.filter(aFilters)
 
+        },
+        onOpenFragment: function () {
+            if (!this._oDialog) {
+                // Load the fragment when the button is pressed
+                Fragment.load({
+                    id:this.getView().getId(), // This ensures that Id's in fragments are accessable
+                    name: "app.mining0953.fragments.create", // Ensure the path is correct
+                    controller: this
+                }).then(function (oDialog) {
+                    this._oDialog = oDialog; // Store the dialog reference
+                    this.getView().addDependent(oDialog); // Add the dialog as dependent to the view
+                    oDialog.open(); // Open the dialog
+                }.bind(this));
+            } else {
+                this._oDialog.open(); // If dialog is already created, just open it
+            }
+        },
+
+        // Handle the Cancel Button Click
+        onCancelPress: function () {
+            if (this._oDialog) {
+                this._oDialog.close(); // Close the dialog on Cancel
+            }
+        },
+
+        // Handle the Create Button Click
+        onCreatePress: function () {
+            var loc = this.getView().byId('locationId').getValue()
         }
-  
     });
 });
