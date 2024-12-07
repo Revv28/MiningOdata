@@ -96,6 +96,11 @@
         "type":"sap.ui.model.json.JSONModel",
         "preload": true,
         "settings": {}
+      },
+      "oDataCreate": {
+        "type":"sap.ui.model.json.JSONModel",
+        "preload": true,
+        "settings": {}
       }
 
     },
@@ -121,7 +126,7 @@
       "routes": [
         {
           "name": "RouteView1",
-          "pattern": ":?query:",
+          "pattern": "",
           "target": [
             "TargetView1"
           ]

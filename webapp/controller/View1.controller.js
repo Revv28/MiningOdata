@@ -1,24 +1,20 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
+    "app/mining0953/controller/BaseController",
     "sap/ui/core/Fragment",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-], (Controller,Fragment,Filter,FilterOperator) => {
+], (BaseController,Fragment,Filter,FilterOperator) => {
     "use strict";
 
-    return Controller.extend("app.mining0953.controller.View1", {
+    return BaseController.extend("app.mining0953.controller.View1", {
         onInit() {
             var oDefaultModel = this.getOwnerComponent().getModel()
             var oMiningOdata = this.getOwnerComponent().getModel('odataMining')
-            var url = "/oMiningSet"
-            oDefaultModel.read(url, {
+            var entitySet = "/oMiningSet"
+            oDefaultModel.read(entitySet, {
                 success: function (oData, res) {
-                    if (res.statusCode === '200' || res.statusText === "OK") {
-                        console.log(oData);
-                        
+                    if (res.statusCode === '200' || res.statusText === "OK") { 
                         oMiningOdata.setData(oData)
-                        // oModel1.setData(oData); 
-                        // that.getView().setModel()
                     }
 
                 },
@@ -37,14 +33,17 @@ sap.ui.define([
             var sPath = oItem.mAggregations.cells
             var miningObj = {}
             for (let obj of sPath){
-                var colName = obj.mBindingInfos.text.binding.sPath
-                var colValue = obj.mBindingInfos.text.binding.oValue
-                miningObj[colName] = colValue
+                // console.log(Boolean(obj.mBindingInfos.text));
+                
+                if (obj.mBindingInfos.text){
+                    var colName = obj.mBindingInfos.text.binding.sPath
+                    var colValue = obj.mBindingInfos.text.binding.oValue
+                    miningObj[colName] = colValue
+                }
  
             }
+            var miningObj = this._extractRowData(oEvt);
             var miningJsonObject = JSON.stringify(miningObj);
-            
-
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.navTo("RouteView2", {
                 mining: miningJsonObject
@@ -116,7 +115,7 @@ sap.ui.define([
             oBinding.filter(aFilters)
 
         },
-        onOpenFragment: function () {
+        createFragmentOpen: function () {
             if (!this._oDialog) {
                 // Load the fragment when the button is pressed
                 Fragment.load({
@@ -142,7 +141,31 @@ sap.ui.define([
 
         // Handle the Create Button Click
         onCreatePress: function () {
-            var loc = this.getView().byId('locationId').getValue()
+            var locationId = this.getView().byId('locationId').getValue();
+            var locationDescription =  this.getView().byId('locationDescription').getValue();
+            var miningResourceAllocation = this.getView().byId('miningResourceAllocation').getValue();
+            var totalCost = this.getView().byId('totalCost').getValue();
+            var oDefaultModel = this.getOwnerComponent().getModel()
+            var createModel = this.getOwnerComponent().getModel('oDataCreate');
+            var oData = {
+                LocationId:locationId,
+                LocationDesc:locationDescription,
+                MiningRa:miningResourceAllocation,
+                TotalCost:totalCost
+            }
+            var entitySet = "/oMiningSet";
+            var parameters = {
+                success:function(oData){
+                    
+                },
+                error:function(error){
+                   
+                    
+                }
+            }
+        },
+        onEditPress:function(oEvt){
+           
         }
     });
 });

@@ -3,6 +3,8 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:core="sap.ui.core"
+
 >
     <Page
         id="page"
@@ -72,7 +74,7 @@
 
             <VBox>
                 <HBox>
-                <Button text="create" press="onOpenFragment"></Button>
+                
                     <!-- <Input
                         id="searchField1"
                         placeholder="Search by Location Id"
@@ -103,6 +105,13 @@
                     growing="true"
                     growingThreshold="10"
                 >
+                <headerToolbar>
+                    <Toolbar >
+                        <Title text="Locations Details"></Title>
+                        <ToolbarSpacer ></ToolbarSpacer>
+                        <Button icon="sap-icon://add" press="createFragmentOpen"></Button>
+                    </Toolbar>
+                </headerToolbar>
                     <columns>
                         <Column>
                             <Text text="Location Id" />
@@ -116,6 +125,9 @@
                         <Column>
                             <Text text="TotalCost" />
                         </Column>
+                         <Column>
+                             <Text text="Actions" />
+                        </Column>
                     </columns>
                     <items>
                         <ColumnListItem type="Navigation">
@@ -124,6 +136,15 @@
                                 <Text text="{odataMining>LocationDesc}" />
                                 <Text text="{odataMining>MiningRa}" />
                                 <Text text="{odataMining>TotalCost}" />
+                                <HBox >
+                                    <Button icon="sap-icon://edit" press="onEditPress"  customData="{path: 'odataMining>LocationId'}"> 
+                                        <customData>
+                                            <core:CustomData key="LocationId" value="{odataMining>LocationId}" />
+                                        </customData>
+                                    </Button>
+                                    <ToolbarSpacer width="10px" />
+                                    <Button icon="sap-icon://delete" press="onDeletePress"> </Button>
+                                </HBox>
                             </cells>
                         </ColumnListItem>
                     </items>
