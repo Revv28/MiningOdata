@@ -32,19 +32,7 @@ sap.ui.define([
         },
     
         onRowPress: function (oEvt) {
-            var oItem = oEvt.getParameter("listItem");
-            var sPath = oItem.mAggregations.cells
-            var miningObj = {}
-            for (let obj of sPath){
-                // console.log(Boolean(obj.mBindingInfos.text));
-                
-                if (obj.mBindingInfos.text){
-                    var colName = obj.mBindingInfos.text.binding.sPath
-                    var colValue = obj.mBindingInfos.text.binding.oValue
-                    miningObj[colName] = colValue
-                }
- 
-            }
+           
             var miningObj = this._extractRowData(oEvt);
             var miningJsonObject = JSON.stringify(miningObj);
             var oRouter = this.getOwnerComponent().getRouter();
@@ -165,12 +153,13 @@ sap.ui.define([
             var parameters = {
                 success:function(oData,res){
                    if (res.statusCode === '201' || res.statusText === "OK") {
-                            locationId.setValue('');
-                            locationDescription.setValue('');
-                            miningResourceAllocation.setValue('');
-                            totalCost.setValue('');
+                        locationId.setValue('');
+                        locationDescription.setValue('');
+                        miningResourceAllocation.setValue('');
+                        totalCost.setValue('');
                         if (that._oDialog) {
                             that._oDialog.close(); 
+                            that.showMessageDialog('Successfully Created','Success')
 
                     }
                    }
