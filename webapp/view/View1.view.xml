@@ -137,7 +137,7 @@
                                 <Text text="{odataMining>MiningRa}" />
                                 <Text text="{odataMining>TotalCost}" />
                                 <HBox >
-                                    <Button icon="sap-icon://edit" press="onEditPress"  customData="{path: 'odataMining>LocationId'}"> 
+                                    <Button icon="sap-icon://edit" press="onEditPress"> 
                                         <customData>
                                             <core:CustomData key="LocationId" value="{odataMining>LocationId}" />
                                         </customData>

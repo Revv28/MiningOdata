@@ -3,7 +3,10 @@ sap.ui.define([
     "sap/ui/core/Fragment",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-], (BaseController,Fragment,Filter,FilterOperator) => {
+    "sap/m/Dialog",
+    "sap/m/Button",
+    "sap/m/Text"
+], (BaseController,Fragment,Filter,FilterOperator,Dialog,Button,Text) => {
     "use strict";
 
     return BaseController.extend("app.mining0953.controller.View1", {
@@ -141,31 +144,50 @@ sap.ui.define([
 
         // Handle the Create Button Click
         onCreatePress: function () {
-            var locationId = this.getView().byId('locationId').getValue();
-            var locationDescription =  this.getView().byId('locationDescription').getValue();
-            var miningResourceAllocation = this.getView().byId('miningResourceAllocation').getValue();
-            var totalCost = this.getView().byId('totalCost').getValue();
+            var that = this 
+            var locationId = this.getView().byId('locationId');
+            var locationIdValue = locationId.getValue();
+            var locationDescription =  this.getView().byId('locationDescription');
+            var locationDescriptionValue = locationDescription.getValue();
+            var miningResourceAllocation = this.getView().byId('miningResourceAllocation');
+            var miningResourceAllocationValue = miningResourceAllocation.getValue();
+            var totalCost = this.getView().byId('totalCost');
+            var totalCostValue = totalCost.getValue();
             var oDefaultModel = this.getOwnerComponent().getModel()
             var createModel = this.getOwnerComponent().getModel('oDataCreate');
             var oData = {
-                LocationId:locationId,
-                LocationDesc:locationDescription,
-                MiningRa:miningResourceAllocation,
-                TotalCost:totalCost
+                LocationId:locationIdValue,
+                LocationDesc:locationDescriptionValue,
+                MiningRa:miningResourceAllocationValue,
+                TotalCost:totalCostValue
             }
             var entitySet = "/oMiningSet";
             var parameters = {
-                success:function(oData){
-                    
+                success:function(oData,res){
+                   if (res.statusCode === '201' || res.statusText === "OK") {
+                            locationId.setValue('');
+                            locationDescription.setValue('');
+                            miningResourceAllocation.setValue('');
+                            totalCost.setValue('');
+                        if (that._oDialog) {
+                            that._oDialog.close(); 
+
+                    }
+                   }
+
                 },
                 error:function(error){
                    
                     
                 }
             }
+            oDefaultModel.create(entitySet,oData,parameters)
         },
         onEditPress:function(oEvt){
-           
+            var oButton = oEvt.getSource();
+            var locatoinId = oButton.getCustomData()[0].getValue();
+            
         }
+
     });
 });
