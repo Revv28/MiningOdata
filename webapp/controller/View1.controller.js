@@ -31,8 +31,7 @@ sap.ui.define([
             })
         },
     
-        onRowPress: function (oEvt) {
-           
+        onRowPress: function (oEvt) { 
             var miningObj = this._extractRowData(oEvt);
             var miningJsonObject = JSON.stringify(miningObj);
             var oRouter = this.getOwnerComponent().getRouter();
@@ -107,20 +106,12 @@ sap.ui.define([
 
         },
         createFragmentOpen: function () {
-            if (!this._oDialog) {
-                // Load the fragment when the button is pressed
-                Fragment.load({
-                    id:this.getView().getId(), // This ensures that Id's in fragments are accessable
-                    name: "app.mining0953.fragments.create", // Ensure the path is correct
-                    controller: this
-                }).then(function (oDialog) {
-                    this._oDialog = oDialog; // Store the dialog reference
-                    this.getView().addDependent(oDialog); // Add the dialog as dependent to the view
-                    oDialog.open(); // Open the dialog
-                }.bind(this));
-            } else {
-                this._oDialog.open(); // If dialog is already created, just open it
-            }
+            var oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
+            var fragmntPath = oResourceBundle.getText("fPath");
+            var fragmentBtnName = oResourceBundle.getText("fCBName");
+            var actionType = fragmentBtnName
+            var fragmentDiaglogTitle = oResourceBundle.getText("fCDiaTitle");
+            this.showFormDialog(fragmntPath,fragmentDiaglogTitle,fragmentBtnName,actionType) //This opens the location Details fragment
         },
 
         // Handle the Cancel Button Click
@@ -141,8 +132,8 @@ sap.ui.define([
             var miningResourceAllocationValue = miningResourceAllocation.getValue();
             var totalCost = this.getView().byId('totalCost');
             var totalCostValue = totalCost.getValue();
-            var oDefaultModel = this.getOwnerComponent().getModel()
             var createModel = this.getOwnerComponent().getModel('oDataCreate');
+            var oDefaultModel = this.getOwnerComponent().getModel()
             var oData = {
                 LocationId:locationIdValue,
                 LocationDesc:locationDescriptionValue,
@@ -172,11 +163,96 @@ sap.ui.define([
             }
             oDefaultModel.create(entitySet,oData,parameters)
         },
-        onEditPress:function(oEvt){
+        updateFragmentOpen:function(oEvt){
             var oButton = oEvt.getSource();
-            var locatoinId = oButton.getCustomData()[0].getValue();
-            
-        }
+            var locationId = oButton.getCustomData()[0].getValue();
+            var oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
+            var fragmntPath = oResourceBundle.getText("fPath");
+            var fragmentBtnName = oResourceBundle.getText("fUBName");
+            var actionType = fragmentBtnName
+            var fragmentDiaglogTitle = oResourceBundle.getText("fUDiaTitle");
+            this.showFormDialog(fragmntPath,fragmentDiaglogTitle,fragmentBtnName,actionType,locationId) //This opens the location Details fragment
+ 
+        },
+        onUpdatePress:function(){
+            var that = this 
+            var locationId = this.getView().byId('locationId');
+            var locationIdValue = locationId.getValue();
+            var locationDescription =  this.getView().byId('locationDescription');
+            var locationDescriptionValue = locationDescription.getValue();
+            var miningResourceAllocation = this.getView().byId('miningResourceAllocation');
+            var miningResourceAllocationValue = miningResourceAllocation.getValue();
+            var totalCost = this.getView().byId('totalCost');
+            var totalCostValue = totalCost.getValue();
+            var oDefaultModel = this.getOwnerComponent().getModel()
+            var oData = {
+                LocationId:locationIdValue,
+                LocationDesc:locationDescriptionValue,
+                MiningRa:miningResourceAllocationValue,
+                TotalCost:totalCostValue
+            }
+            var entitySet = `/oMiningSet('${locationIdValue}')`;
+            var parameters = {
+                success:function(oData,res){
+                   if (res.statusCode === '204' ) {
+                        locationId.setValue('');
+                        locationDescription.setValue('');
+                        miningResourceAllocation.setValue('');
+                        totalCost.setValue('');
+                        if (that._oDialog) {
+                            that._oDialog.close(); 
+                            that.showMessageDialog('Successfully Updated','Success')
+
+                    }
+                   }
+
+                },
+                error:function(error){
+                   
+                    
+                }
+            }
+            oDefaultModel.update(entitySet,oData,parameters)
+        },
+        onDeletePress:function(oEvt){
+            var oButton = oEvt.getSource();
+            var locationId = oButton.getCustomData()[0].getValue();
+            var oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
+            var fragmntPath = oResourceBundle.getText("dPath");
+            var locationDetails = {locationId:locationId}
+            var oLocModel = this.getOwnerComponent().getModel('oLocationId');
+                oLocModel.setData(locationDetails)
+            var message = `You are deleteing the details of Location Id ${locationId}. Are you sure ?`;
+            this.showDeleteMessageDialog(fragmntPath,message,'Delete Item',locationId);
+        },
+        deleteMessageDialog:function(){
+            var that = this 
+            var oLocModel = this.getOwnerComponent().getModel('oLocationId').getProperty('/locationId');
+            var oDefaultModel = this.getOwnerComponent().getModel();
+            var entitySet = `/oMiningSet('${oLocModel}')`;
+            var parameters = {
+                success:function(oData,res){
+                   if (res.statusCode === '204' ) {
+                    if (that._oDeleteDialog) {
+                        that._oDeleteDialog.close(); // Close the dialog on Cancel
+                        that.showMessageDialog('Successfully Deleted','Success')
+                    }
+                    
+                   }
+
+                },
+                error:function(error){
+                   
+                    
+                }
+            }
+            oDefaultModel.remove(entitySet,parameters)
+        },
+        closeDeleteDialog:function(){
+            if (this._oDeleteDialog) {
+                this._oDeleteDialog.close(); // Close the dialog on Cancel
+            }
+        },
 
     });
 });

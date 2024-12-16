@@ -101,6 +101,11 @@
         "type":"sap.ui.model.json.JSONModel",
         "preload": true,
         "settings": {}
+      },
+      "oLocationId": {
+        "type":"sap.ui.model.json.JSONModel",
+        "preload": true,
+        "settings": {}
       }
 
     },

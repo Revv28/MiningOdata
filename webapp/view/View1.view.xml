@@ -137,13 +137,17 @@
                                 <Text text="{odataMining>MiningRa}" />
                                 <Text text="{odataMining>TotalCost}" />
                                 <HBox >
-                                    <Button icon="sap-icon://edit" press="onEditPress"> 
+                                    <Button icon="sap-icon://edit" press="updateFragmentOpen"> 
                                         <customData>
                                             <core:CustomData key="LocationId" value="{odataMining>LocationId}" />
                                         </customData>
                                     </Button>
                                     <ToolbarSpacer width="10px" />
-                                    <Button icon="sap-icon://delete" press="onDeletePress"> </Button>
+                                    <Button icon="sap-icon://delete" press="onDeletePress">
+                                    <customData>
+                                        <core:CustomData key="LocationId" value="{odataMining>LocationId}" />
+                                    </customData>
+                                    </Button>
                                 </HBox>
                             </cells>
                         </ColumnListItem>
