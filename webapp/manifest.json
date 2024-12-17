@@ -79,8 +79,10 @@
       },
       "": {
         "dataSource": "mainService",
-        "preload": true,
-        "settings": {}
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "refreshAfterChange": true
+      }
       },
       "drillModel": {
         "type":"sap.ui.model.json.JSONModel",
@@ -95,7 +97,10 @@
       "odataMining": {
         "type":"sap.ui.model.json.JSONModel",
         "preload": true,
-        "settings": {}
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "refreshAfterChange": true
+      }
       },
       "oDataCreate": {
         "type":"sap.ui.model.json.JSONModel",

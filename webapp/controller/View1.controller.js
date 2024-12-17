@@ -202,6 +202,8 @@ sap.ui.define([
                         if (that._oDialog) {
                             that._oDialog.close(); 
                             that.showMessageDialog('Successfully Updated','Success')
+                            var some =  that.getOwnerComponent().getModel('odataMining').getProperty('/results')
+                            
 
                     }
                    }
@@ -237,7 +239,6 @@ sap.ui.define([
                         that._oDeleteDialog.close(); // Close the dialog on Cancel
                         that.showMessageDialog('Successfully Deleted','Success')
                     }
-                    
                    }
 
                 },
