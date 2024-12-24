@@ -8,6 +8,45 @@ sap.ui.define([
     return Controller.extend("app.mining0953.controller.BaseController", {
         onInit() {
         },
+        readCallFunction:function(){
+            var oDefaultModel = this.getOwnerComponent().getModel()
+            var oMiningOdata = this.getOwnerComponent().getModel('odataMining')
+            var entitySet = "/oMiningSet"
+            oDefaultModel.read(entitySet, {
+                success: function (oData, res) {
+                    if (res.statusCode === '200' || res.statusText === "OK") { 
+                        oMiningOdata.setData(oData)
+                    }
+
+                },
+                error: function (error) {
+                    if (error.statusCode === "404") {
+                        console.log(error)
+                    }
+                }
+
+
+            })
+        },
+        // openFragemt:function(fragmentName){
+        //     if(!this.oFragment){
+        //         this.oFragment = {};
+        //     }
+        //     if(!this.oFragment[fragmentName]){
+        //         Fragment.load({
+        //             id:this.getView().getId(),
+        //             name: app.mining0953.fragments.fragmentName,
+        //             controller: this,
+        //         }).then(function(oDialog){
+        //             this.oFragment[fragmentName]=oDialog;
+        //             this.getView().addDependent(oDialog);
+        //             this.oDialog.open();
+        //         }).bind(this)
+        //     }
+        //     else{
+        //         this.oDialog.open();
+        //     }
+        // },
         _extractRowData:function(oEvt){
           var oItem = oEvt.getParameter("listItem");
           var sPath = oItem.mAggregations.cells

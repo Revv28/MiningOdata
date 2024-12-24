@@ -16,13 +16,13 @@
                     <Input id="totalCost" />
                 </f:content>
             </f:SimpleForm>
-        </content>
-        <buttons>
-            <Button id="idBtnCU" visible='true' text="" press="onCreatePress"/> 
+        </content> <buttons>
+            <Button id="idBtnCU" visible='true' text="" press=""/> 
             <Button id="idBtnUpdate" visible='false' text="" press="onCreatePress"/> 
 
             <Button id="idCancel" text="Cancel" press="onCancelPress"/>
             <!-- create button  -->
         </buttons>
+       
     </Dialog>
 </core:FragmentDefinition>

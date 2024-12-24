@@ -2,33 +2,13 @@ sap.ui.define([
     "app/mining0953/controller/BaseController",
     "sap/ui/core/Fragment",
     "sap/ui/model/Filter",
-    "sap/ui/model/FilterOperator",
-    "sap/m/Dialog",
-    "sap/m/Button",
-    "sap/m/Text"
-], (BaseController,Fragment,Filter,FilterOperator,Dialog,Button,Text) => {
+    "sap/ui/model/FilterOperator"
+], (BaseController,Fragment,Filter,FilterOperator) => {
     "use strict";
 
     return BaseController.extend("app.mining0953.controller.View1", {
         onInit() {
-            var oDefaultModel = this.getOwnerComponent().getModel()
-            var oMiningOdata = this.getOwnerComponent().getModel('odataMining')
-            var entitySet = "/oMiningSet"
-            oDefaultModel.read(entitySet, {
-                success: function (oData, res) {
-                    if (res.statusCode === '200' || res.statusText === "OK") { 
-                        oMiningOdata.setData(oData)
-                    }
-
-                },
-                error: function (error) {
-                    if (error.statusCode === "404") {
-                        console.log(error)
-                    }
-                }
-
-
-            })
+           this.readCallFunction()
         },
     
         onRowPress: function (oEvt) { 
@@ -132,7 +112,7 @@ sap.ui.define([
             var miningResourceAllocationValue = miningResourceAllocation.getValue();
             var totalCost = this.getView().byId('totalCost');
             var totalCostValue = totalCost.getValue();
-            var createModel = this.getOwnerComponent().getModel('oDataCreate');
+            // var createModel = this.getOwnerComponent().getModel('oDataCreate');
             var oDefaultModel = this.getOwnerComponent().getModel()
             var oData = {
                 LocationId:locationIdValue,
@@ -151,10 +131,11 @@ sap.ui.define([
                         if (that._oDialog) {
                             that._oDialog.close(); 
                             that.showMessageDialog('Successfully Created','Success')
+                        
 
                     }
+                    that.readCallFunction()
                    }
-
                 },
                 error:function(error){
                    
@@ -203,11 +184,9 @@ sap.ui.define([
                             that._oDialog.close(); 
                             that.showMessageDialog('Successfully Updated','Success')
                             var some =  that.getOwnerComponent().getModel('odataMining').getProperty('/results')
-                            
-
                     }
                    }
-
+                   that.readCallFunction()
                 },
                 error:function(error){
                    
@@ -240,7 +219,7 @@ sap.ui.define([
                         that.showMessageDialog('Successfully Deleted','Success')
                     }
                    }
-
+                   that.readCallFunction()
                 },
                 error:function(error){
                    
@@ -254,6 +233,5 @@ sap.ui.define([
                 this._oDeleteDialog.close(); // Close the dialog on Cancel
             }
         },
-
     });
 });
